@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>幽靈組語 · Ghost Assembly</title>
+<meta name="description" content="那台不存在的機器，與它在每個分頁裡的沉默運轉——WebAssembly、靜態託管與後護城河時代的工程實錄。"/>
+<style>
+  :root{--ink:#1d2230;--mut:#5a6378;--pa:#fbf8f0;--accent:#9a3b2f;--accent2:#2f5d7a;--dark:#14182a;--gold:#f4b860;--boxln:#e8c88a}
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:"Noto Serif CJK TC","Songti TC","PingFang TC","Microsoft JhengHei",serif;color:var(--ink);
+       background:radial-gradient(1200px 600px at 50% -10%,#fff 0,var(--pa) 60%);min-height:100vh;line-height:1.8}
+  .wrap{max-width:980px;margin:0 auto;padding:56px 24px 96px}
+  header{text-align:center;margin-bottom:14px}
+  h1{font-size:42px;letter-spacing:8px;margin:0 0 8px}
+  .en-title{font-size:18px;letter-spacing:3px;color:var(--accent);font-family:Georgia,serif;margin:0 0 10px}
+  .sub{color:var(--mut);font-size:15px;font-family:"Noto Sans CJK TC","PingFang TC",sans-serif;margin:0 auto;max-width:660px}
+  .hero{display:flex;gap:36px;align-items:center;margin:36px 0 44px;flex-wrap:wrap;justify-content:center}
+  .hero img{width:340px;max-width:90vw;border-radius:14px;box-shadow:0 18px 50px rgba(20,24,42,.32)}
+  .pitch{flex:1;min-width:280px;max-width:460px}
+  .pitch .quote{font-size:18px;line-height:1.9;color:#3a3326;background:#fdf3e3;border:1px solid var(--boxln);
+       border-radius:14px;padding:20px 24px;box-shadow:0 4px 14px rgba(180,140,60,.12)}
+  .pitch .quote b{color:#9a6a1a}
+  h2.section{font-family:"Noto Sans CJK TC",sans-serif;font-size:13px;letter-spacing:3px;color:var(--mut);
+       text-align:center;text-transform:uppercase;margin:40px 0 18px}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:680px){.cards{grid-template-columns:1fr}h1{font-size:32px;letter-spacing:4px}}
+  .card{display:block;text-decoration:none;color:inherit;background:var(--dark);border-radius:16px;padding:26px 26px 22px;
+       box-shadow:0 10px 30px rgba(20,24,42,.25);transition:transform .15s,box-shadow .15s;position:relative;overflow:hidden}
+  .card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(20,24,42,.4)}
+  .card .lang{font-family:"Noto Sans CJK TC",sans-serif;font-size:13px;letter-spacing:2px;color:#49c5e0}
+  .card .name{font-size:26px;color:#fff;margin:6px 0 4px;letter-spacing:2px}
+  .card .meta{font-family:"Noto Sans CJK TC",sans-serif;font-size:13px;color:#9aa3c0;line-height:1.6}
+  .card .go{display:inline-block;margin-top:14px;font-family:"Noto Sans CJK TC",sans-serif;font-size:13px;
+       color:var(--gold);border:1px solid #3a426a;border-radius:8px;padding:6px 14px}
+  .card.soon{opacity:.62}
+  .mv{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:8px}
+  @media(max-width:680px){.mv{grid-template-columns:1fr}}
+  .mv div{background:#fff;border:1px solid #e6e2d6;border-radius:12px;padding:16px 18px;font-family:"Noto Sans CJK TC",sans-serif;font-size:14px;line-height:1.7}
+  .mv b{display:block;font-size:17px;letter-spacing:2px;margin-bottom:4px;color:var(--accent)}
+  .mv span{color:var(--mut);font-size:12.5px}
+  .pdfrow{text-align:center;margin-top:14px;font-family:"Noto Sans CJK TC",sans-serif;font-size:14px}
+  .pdfrow a{color:var(--accent2);text-decoration:none;margin:0 10px;border-bottom:1px solid #cdd9e0;padding-bottom:1px}
+  .pdfrow a:hover{color:var(--accent)}
+  footer{text-align:center;margin-top:56px;color:var(--mut);font-size:12.5px;font-family:"Noto Sans CJK TC",sans-serif;line-height:1.9}
+  footer a{color:var(--accent2);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>幽靈組語</h1>
+    <p class="en-title">GHOST ASSEMBLY</p>
+    <p class="sub">那台不存在的機器，與它在每個分頁裡的沉默運轉——WebAssembly、靜態託管與後護城河時代的工程實錄。</p>
+  </header>
+
+  <div class="hero">
+    <img src="GhostAssembly.png" alt="幽靈組語 · Ghost Assembly 封面海報"/>
+    <div class="pitch">
+      <p class="quote">能被下載的，遲早會被複製；<br/><b>不能被搬走的，才是護城河。</b></p>
+    </div>
+  </div>
+
+  <h2 class="section">三個樂章 · Three movements</h2>
+  <div class="mv">
+    <div><b>懂它</b>第 1–4 章<br/><span>二進位的物理學、堆疊機器與線性記憶體、分層編譯、與 JS／Docker／Isolates／EVM／WebGPU／原生的六場競爭</span></div>
+    <div><b>用它</b>第 5–8 章<br/><span>COOP/COEP 那道坎、101 案圖鑑、MEMFS/IDBFS/OPFS/WASI 四層儲存、4GB 天花板與四種破圈架構</span></div>
+    <div><b>守它</b>第 9–12 章<br/><span>二進位的天然混淆與兩大禁區、Figma 的四道防線、技術商品化的時間常數、Token 歸零後的終局架構；附錄 L 用一個跑了三十年的開源對照實驗收尾</span></div>
+  </div>
+
+  <h2 class="section">線上閱讀 · Read online</h2>
+  <div class="cards">
+    <a class="card" href="幽靈組語.html">
+      <div class="lang">繁體中文</div>
+      <div class="name">線上閱讀全書</div>
+      <div class="meta">12 章 + 附錄 A–O · 側欄目錄 · 百案圖鑑 101 案 · 規範深水區 · 體積與速度 · 測試與 CI</div>
+      <span class="go">開始閱讀 →</span>
+    </a>
+    <a class="card" href="cn/幽灵汇编.html">
+      <div class="lang">简体中文</div>
+      <div class="name">在线阅读全书</div>
+      <div class="meta">12 章 + 附录 A–O · 侧栏目录 · opencc tw2sp 转换（含台湾用语转大陆用语）</div>
+      <span class="go">开始阅读 →</span>
+    </a>
+    <a class="card" href="en/GhostAssembly.html">
+      <div class="lang">English</div>
+      <div class="name">Read the full book</div>
+      <div class="meta">12 chapters + Appendices A–O · sidebar TOC · the 101-case catalog · the spec deep end · size &amp; speed · testing &amp; CI</div>
+      <span class="go">Start reading →</span>
+    </a>
+    <span class="card soon">
+      <div class="lang">日本語</div>
+      <div class="name">全文を読む</div>
+      <div class="meta">未公開 · 翻訳予定</div>
+      <span class="go">近日公開</span>
+    </span>
+  </div>
+
+  <h2 class="section">下載 · Download</h2>
+  <p class="pdfrow">
+    <a href="幽靈組語.pdf">📕 繁體中文 PDF</a>
+    <a href="cn/幽灵汇编.pdf">📗 简体中文 PDF</a>
+    <a href="en/GhostAssembly.pdf">📘 English PDF</a>
+  </p>
+  <p class="pdfrow">
+    <a href="幽靈組語_全書.md">📄 繁體 合併 Markdown</a>
+    <a href="cn/幽灵汇编_全书.md">📄 简体 合并 Markdown</a>
+    <a href="en/GhostAssembly_full.md">📄 English merged Markdown</a>
+  </p>
+
+  <footer>
+    僅供教育與研究用途 · For educational &amp; research use only<br/>
+    書中所有效能數字均為引用值，未經獨立驗證；百案圖鑑採三級真偽標記（🟢 可查證 / 🟡 上游真實 / 🔴 示意性構造）<br/>
+    以 WebAssembly 3.0（2025-09）為規範基準；規範層面的敘述請以官方規範與 MDN 為最終依據
+  </footer>
+</div>
+</body>
+</html>

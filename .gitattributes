@@ -1,0 +1,6 @@
+# 以 LF 作為倉庫內的正規行尾；checkout 時交給各平台自理
+* text=auto eol=lf
+
+# 二進位資產不做行尾轉換
+*.png binary
+*.pdf binary
